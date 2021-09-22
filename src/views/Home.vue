@@ -12,14 +12,23 @@
 // @ is an alias to /src
 import landing from '@/components/landing.vue'
 import next from '@/components/next.vue'
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 
 
 
 export default {
+
   name: 'Home',
   components: {
     landing,
     next,
+
+  },
+  data() {
+
+  },
+  methods: {
 
   }
 }

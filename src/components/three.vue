@@ -15,8 +15,7 @@ export default {
    },
    mounted() {
 
-
-      const scene = new THREE.Scene();
+      const scene1 = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({antialias: false});
       
@@ -134,7 +133,7 @@ export default {
       mainGroup.add(sunPoints, mercuryGroup, venusGroup, earthGroup, marsGroup, jupiterGroup, saturnGroup, neptuneGroup, uranusGroup);
       mainGroup.rotateX(0.41);
 
-      scene.add(mainGroup);
+      scene1.add(mainGroup);
 
       function animate() {
          // const speed = 0.0005;
@@ -170,22 +169,10 @@ export default {
          neptunePoints.rotateOnAxis(yAxis, 0.005);
 
          requestAnimationFrame(animate);
-         renderer.render(scene, camera);
+         renderer.render(scene1, camera);
       }
 
       animate();
-      // const scene = new THREE.Scene();
-      // const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
-      // const renderer = new THREE.WebGLRenderer({antialias: false});
-
-      // function animate() {
-         
-
-      //    requestAnimationFrame(animate);
-      //    renderer.render(scene, camera);
-      // }
-
-      // animate();
    },
    methods: {
 

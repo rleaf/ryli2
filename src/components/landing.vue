@@ -9,7 +9,7 @@
 
 <script>
 // import three from '@/components/three.vue'
-import three from './three.vue'
+import three from './three2.vue'
 
 
 export default {
