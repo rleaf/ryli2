@@ -7,7 +7,7 @@
 <script>
 // import { World } from './worlds/World.js'
 import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 // import { gsap } from 'gsap'
 
 export default {
@@ -38,11 +38,16 @@ export default {
       // Object
       const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), basicMaterial)
       const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(.3, .3, 1, 20), standardMesh)
+      // cylinder.rotation.x = - Math.PI * 0.5
       
-      const plane = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), standardMesh)
+      const plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), standardMesh)
       plane.rotation.x = - Math.PI * 0.5
       plane.position.y = -0.65
       scene.add(cylinder, plane)
+
+      // Fog
+      const fog = new THREE.Fog('#180202', 1, 10)
+      scene.fog = fog
 
       // Resize
       window.addEventListener('resize', () =>
@@ -75,14 +80,15 @@ export default {
       camera.lookAt(mesh.position)
       scene.add(camera)
 
-      // const controls = new OrbitControls(camera, threeCanvas)
-      // controls.enableDamping = true
+      const controls = new OrbitControls(camera, threeCanvas)
+      controls.enableDamping = true
 
       // Renderer
       const renderer = new THREE.WebGLRenderer({
          canvas: threeCanvas
       })
       renderer.setSize(sizes.width, sizes.height)
+      renderer.setClearColor('#180202')
 
       // gsap.to(mesh.position, { duration: 1, delay: 1, x: 2})
       const clock = new THREE.Clock()
@@ -96,7 +102,7 @@ export default {
          mesh.rotation.y = elapsedTime
          camera.rotation.x = - (cursor.y * 0.2)
          camera.rotation.y = - (cursor.x * 0.2)
-         // controls.update()
+         controls.update()
 
          renderer.render(scene, camera)
          window.requestAnimationFrame(tick)
