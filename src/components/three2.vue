@@ -8,6 +8,8 @@
 // import { World } from './worlds/World.js'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import testVertexShader from '../assets/shaders/test/vertex.glsl'
+import testFragmentShader from '../assets/shaders/test/fragment.glsl'
 // import { gsap } from 'gsap'
 
 export default {
@@ -25,29 +27,40 @@ export default {
       // Scene
       const scene = new THREE.Scene()
 
+
       // Light
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
       const pointLight = new THREE.PointLight(0x3e8edf, 0.5)
       scene.add(ambientLight, pointLight)
       pointLight.position.y = -.5
 
+
       // Material
       const basicMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000})
       const standardMesh = new THREE.MeshStandardMaterial()
+      const shader = new THREE.RawShaderMaterial({
+         vertexShader: testVertexShader,
+         fragmentShader: testFragmentShader,
+      })
+
 
       // Object
       const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), basicMaterial)
+      const mesh2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shader)
       const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(.3, .3, 1, 20), standardMesh)
       // cylinder.rotation.x = - Math.PI * 0.5
       
+
       const plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), standardMesh)
       plane.rotation.x = - Math.PI * 0.5
       plane.position.y = -0.65
-      scene.add(cylinder, plane)
+      scene.add(cylinder, plane, mesh2)
+
 
       // Fog
-      const fog = new THREE.Fog('#180202', 1, 10)
-      scene.fog = fog
+      // const fog = new THREE.Fog('#180202', 1, 10)
+      // scene.fog = fog
+
 
       // Resize
       window.addEventListener('resize', () =>
@@ -88,7 +101,7 @@ export default {
          canvas: threeCanvas
       })
       renderer.setSize(sizes.width, sizes.height)
-      renderer.setClearColor('#180202')
+      // renderer.setClearColor('#180202')
 
       // gsap.to(mesh.position, { duration: 1, delay: 1, x: 2})
       const clock = new THREE.Clock()
