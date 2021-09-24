@@ -45,6 +45,7 @@ export default {
 html, body {
   background-color:#181818;
   margin: 0;
+  overflow: hidden;
 }
 
 p {
@@ -56,7 +57,8 @@ font-weight: bold;
 -moz-osx-font-smoothing: grayscale;
 position: absolute;
 text-align: center;
-color: #8f959b;
+/* color: #3e8edf; */
+color: #5f97ce;
 margin: 0;
 } 
 

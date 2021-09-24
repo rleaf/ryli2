@@ -5,5 +5,4 @@ function createRenderer() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   return renderer;
 }
-
 export { createRenderer };
