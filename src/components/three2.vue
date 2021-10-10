@@ -8,8 +8,8 @@
 // import { World } from './worlds/World.js'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import testVertexShader from '../assets/shaders/test/vertex.glsl'
-import testFragmentShader from '../assets/shaders/test/fragment.glsl'
+import testVertexShader from '@/assets/shaders/vertex.glsl'
+import testFragmentShader from '@/assets/shaders/fragment.glsl'
 // import { gsap } from 'gsap'
 
 export default {
@@ -28,38 +28,46 @@ export default {
       const scene = new THREE.Scene()
 
 
-      // Light
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-      const pointLight = new THREE.PointLight(0x3e8edf, 0.5)
-      scene.add(ambientLight, pointLight)
-      pointLight.position.y = -.5
+
 
 
       // Material
-      const basicMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000})
-      const standardMesh = new THREE.MeshStandardMaterial()
-      const shader = new THREE.RawShaderMaterial({
-         vertexShader: testVertexShader,
+      const basicMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00})
+      const standardMaterial = new THREE.MeshStandardMaterial()
+      const shader = new THREE.ShaderMaterial({
+            vertexShader: testVertexShader,
          fragmentShader: testFragmentShader,
+         // transparent: true,
+         // fog: true,
+         uniforms: {
+         
+            }
       })
 
-
-      // Object
+      // Mesh
       const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), basicMaterial)
-      const mesh2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shader)
-      const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(.3, .3, 1, 20), standardMesh)
-      // cylinder.rotation.x = - Math.PI * 0.5
-      
+      mesh.position.set(5, 5, 0)
+      const sphere = new THREE.Mesh(new THREE.SphereGeometry(.7,32, 16), standardMaterial)
+      sphere.position.y = .5
 
-      const plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), standardMesh)
+      const plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), shader)
       plane.rotation.x = - Math.PI * 0.5
       plane.position.y = -0.65
-      scene.add(cylinder, plane, mesh2)
+      scene.add(mesh, sphere, plane)
 
+      // Light
+      // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+      const pointLight = new THREE.PointLight(0x3e8edf, 1)
+      const pointLight2 = new THREE.PointLight(0xdf84df, 1)
+      scene.add(pointLight2, pointLight)
+      pointLight.position.set(50, 50, 0)
+      pointLight2.position.set(-50, 50, 0)
+      pointLight.lookAt(mesh.position)
+      pointLight2.lookAt(mesh.position)
 
       // Fog
-      // const fog = new THREE.Fog('#180202', 1, 10)
-      // scene.fog = fog
+      const fog = new THREE.Fog('#180202', 1, 10)
+      scene.fog = fog
 
 
       // Resize
@@ -148,5 +156,6 @@ export default {
     top: 0;
     left: 0;
     outline: none;
+    color: #186691;
  }
 </style>

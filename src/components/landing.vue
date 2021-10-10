@@ -1,6 +1,6 @@
 <template>
    <div id="landing">
-         <p id="landingText">Hi, I'm Ryan Lin</p>
+         <!-- <p id="landingText">Hi, I'm Ryan Lin</p> -->
       <div id="canvas">
          <three id="three"/>
       </div>
@@ -25,7 +25,7 @@ export default {
    width: 100vw;
    height: 100vh;
    display: block;
-   background-color: #296fb4;
+   background-color: #0e0e0e;
 }
 
 #canvas {
